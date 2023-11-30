@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { CardItemInterface } from '../../../types';
+import React, { FunctionComponent, ReactElement } from 'react';
+import { CardItemInterface } from '../../../utils/types';
 import { FaCircle } from 'react-icons/fa';
+import { displaySalePrice } from '../../../utils/finctions';
 
 const CardItem: FunctionComponent<CardItemInterface> = ({
   title,
@@ -11,10 +12,23 @@ const CardItem: FunctionComponent<CardItemInterface> = ({
   imageSrc,
   link,
 }) => {
+  const styleOldPrice = (price: string): ReactElement => {
+    return (
+      <div
+        className={`border-b border-black ${
+          price.length === 5
+            ? 'w-[31px]'
+            : price.length === 6
+            ? 'w-[40px]'
+            : 'w-[48px]'
+        } absolute top-[50%] left-[10px]`}></div>
+    );
+  };
+
   return (
     <a
       href={link}
-      className='relative w-full h-full flex md:flex-col flex-row border rounded-md shadow hover:shadow-md px-4 py-8'>
+      className='relative w-full h-full flex md:flex-col flex-row border rounded-md shadow-sm hover:shadow-lg px-4 py-8 cursor-pointer bg-white'>
       {discount && (
         <div className='absolute flex  items-center w-[150px] top-[5%]'>
           <span className='w-6/12  bg-red-600 opacity-80 text-white text-center font-bold'>
@@ -28,8 +42,8 @@ const CardItem: FunctionComponent<CardItemInterface> = ({
         alt={imageAlt}
       />
 
-      <div className='flex flex-col md:px-0 px-8'>
-        <div className='text-md font-semibold mb-2'>{title}</div>
+      <div className='flex flex-col h-full md:px-0 px-8'>
+        <div className='flex-1 text-md font-semibold mb-2'>{title}</div>
         <div className='flex items-center mb-2'>
           <span className='mr-2 text-sm'>Available</span>
           <FaCircle
@@ -38,18 +52,19 @@ const CardItem: FunctionComponent<CardItemInterface> = ({
             }`}
           />
         </div>
-        <div className='flex gap-2'>
+        <div className='relative flex gap-2'>
           <div className='relative font-light text-sm text-gray-700'>
             <span className='font-semibold text-xs'>€</span>
             {price}
           </div>
 
-          {/* {discount && (
-          <div className='font-light text-sm text-red-600'>
-            <span className='font-semibold text-xs'>€</span>
-            {parseInt(price) - parseInt(price) * (parseInt(discount) / 100)}
-          </div>
-        )} */}
+          {discount && styleOldPrice(price)}
+          {discount && (
+            <div className='font-light text-sm text-red-600'>
+              <span className='font-semibold text-xs'>€</span>
+              {displaySalePrice(price, discount)}
+            </div>
+          )}
         </div>
       </div>
     </a>
