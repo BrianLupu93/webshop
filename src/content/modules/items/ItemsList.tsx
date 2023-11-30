@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import CardItem from './CardItem';
-import { CardItemInterface } from '../../../types';
+import { CardItemInterface } from '../../../utils/types';
 
 interface ItemsListProps {
   items: CardItemInterface[];
@@ -19,6 +19,7 @@ const ItemsList: FunctionComponent<ItemsListProps> = ({ items }) => {
               title={item.title}
               available={item.available}
               discount={item.discount}
+              key={item.id}
             />
           );
         })}
