@@ -5,6 +5,7 @@ import RowContainer from './content/small-utils/containers/RowContainer';
 import ItemsList from './content/modules/items/ItemsList';
 
 import { items } from './testData';
+import Navbar from './content/navbar/Navbar';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
         textColor='text-white'
       />
 
-      <RowContainer bgColor='bg-red-800'>
+      <Navbar />
+
+      <RowContainer bgColor='bg-red-800' extraClass='mb-10'>
         <ModuleHeaderImageText
           headline='Let Santa to discount your presents'
           subheadline='This year is special'

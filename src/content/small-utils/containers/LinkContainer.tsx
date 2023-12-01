@@ -6,6 +6,7 @@ interface LinkContainerProps {
   linkUrl: string;
   icon?: ReactElement;
   underline?: boolean;
+  small?: boolean;
 }
 
 const LinkContainer: FunctionComponent<LinkContainerProps> = ({
@@ -14,11 +15,13 @@ const LinkContainer: FunctionComponent<LinkContainerProps> = ({
   linkUrl,
   icon,
   underline,
+  small,
 }) => {
   return (
     <a
       className={`
       flex items-center group
+      ${small && 'text-sm'}
       ${
         linkcolor ? linkcolor : 'text-blue-600'
       } hover:contrast-75 font-extralight ${
