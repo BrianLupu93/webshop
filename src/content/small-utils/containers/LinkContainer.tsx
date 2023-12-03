@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement, useState } from 'react';
 
 interface LinkContainerProps {
   linkText: string;
@@ -7,6 +7,10 @@ interface LinkContainerProps {
   icon?: ReactElement;
   underline?: boolean;
   small?: boolean;
+  extraClass?: string;
+  showDropdown?: boolean;
+  overEvent?: () => void;
+  leaveEvent?: () => void;
 }
 
 const LinkContainer: FunctionComponent<LinkContainerProps> = ({
@@ -15,13 +19,30 @@ const LinkContainer: FunctionComponent<LinkContainerProps> = ({
   linkUrl,
   icon,
   underline,
+  extraClass,
   small,
+  overEvent,
+  leaveEvent,
+  showDropdown,
 }) => {
+  const [over, setOver] = useState(false);
+
   return (
     <a
+      onMouseOver={() => {
+        !over && showDropdown && setOver(true);
+        overEvent && overEvent();
+      }}
+      onMouseLeave={() => {
+        over && !showDropdown && setOver(false);
+
+        leaveEvent && leaveEvent();
+      }}
       className={`
       flex items-center group
-      ${small && 'text-sm'}
+      ${over ? 'text-red-500' : ''}
+      ${extraClass ? extraClass : ''}
+      ${small ? 'text-sm' : ''}
       ${
         linkcolor ? linkcolor : 'text-blue-600'
       } hover:contrast-75 font-extralight ${

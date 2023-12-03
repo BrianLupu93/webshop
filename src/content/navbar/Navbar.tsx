@@ -31,22 +31,30 @@ const Navbar: FunctionComponent<NavbarProps> = ({ categories, links }) => {
   return (
     <>
       <RowContainer extraClass='mb-0'>
-        <div className='flex items-center py-4'>
-          <div className='flex items-center md:w-5/12'>
+        <div className='h-full flex items-center'>
+          <div className='flex items-center h-full md:w-5/12'>
             <Logo
               imageSrc='src/assets/images/shop-logo.png'
               shopName='ThePhoneShop'
             />
-            <div className='flex items-center gap-2'>
+            <div className='h-full flex items-center'>
               <LinkContainer
+                overEvent={toggleDropdown}
+                leaveEvent={toggleDropdown}
                 small
+                showDropdown={dropdown}
+                extraClass={`h-full `}
                 linkText='Categories'
                 linkUrl='/'
                 underline
                 linkcolor='text-black'
               />
               <LinkContainer
+                overEvent={toggleDropdown}
+                leaveEvent={toggleDropdown}
+                showDropdown={dropdown}
                 small
+                extraClass='pl-4 h-full'
                 linkText='Accessories'
                 linkUrl='/'
                 underline
@@ -55,11 +63,11 @@ const Navbar: FunctionComponent<NavbarProps> = ({ categories, links }) => {
             </div>
           </div>
 
-          <div className='md:w-4/12'>
+          <div className='md:w-4/12 py-4'>
             <SearchBar />
           </div>
 
-          <div className='flex md:w-3/12 justify-end'>
+          <div className='flex md:w-3/12 justify-end py-4'>
             <div className='flex items-center mr-4 hover:cursor-pointer hover:text-rose-500 hover:contrast-125'>
               <span className='text-sm mr-2'>Favorites</span>
               <MdOutlineFavorite className='text-xl text-rose-500' />
@@ -72,7 +80,11 @@ const Navbar: FunctionComponent<NavbarProps> = ({ categories, links }) => {
           </div>
         </div>
       </RowContainer>
-      <DropdownMenu extraClass='group-hover:block hidden' />
+      <DropdownMenu
+        // overEvent={toggleDropdown}
+        leaveEvent={toggleDropdown}
+        extraClass={`${dropdown ? 'block' : 'hidden'}`}
+      />
     </>
   );
 };

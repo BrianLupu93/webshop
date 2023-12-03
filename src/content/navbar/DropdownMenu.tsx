@@ -3,14 +3,23 @@ import RowContainer from '../small-utils/containers/RowContainer';
 
 interface DropdownMenuProps {
   extraClass: string;
+  overEvent?: () => void;
+  leaveEvent?: () => void;
 }
 
-const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({ extraClass }) => {
+const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
+  extraClass,
+  leaveEvent,
+  overEvent,
+}) => {
   return (
     <RowContainer
       bgColor='absolute left-[170px] bg-transparent'
       extraClass={extraClass}>
-      <div className='bg-white w-1/3 rounded-b-sm py-2 px-4 font-light'>
+      <div
+        onMouseOver={overEvent && (() => overEvent())}
+        onMouseLeave={leaveEvent && (() => leaveEvent())}
+        className='bg-white w-[250px] rounded-b-sm py-2 px-4 font-light'>
         <div>Apple</div>
         <div>Samsung</div>
         <div>Huawei</div>
